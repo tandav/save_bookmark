@@ -11,12 +11,18 @@ app.includeStandardAdditions = true
 
 const default_location = app.pathTo('home folder').toString() + '/Documents/GoogleDrive/entrypoint'
 
-const folder = app.chooseFolder({
-    withPrompt: 'Select Save Location',
-    defaultLocation: default_location,
-})
+//const folder = app.chooseFolder({
+//    withPrompt: 'Select Save Location',
+//})
+//
+//console.log(folder)
 
-console.log(folder)
+const fn = app.chooseFileName({
+    withPrompt: 'Save the document as:',
+    defaultName: tab.title() + '.webloc',
+//    defaultLocation: default_location,
+})
+console.log(fn)
 
 
 
@@ -42,7 +48,7 @@ console.log(folder)
 
 // currentTab.execute({javascript: 'alert("Hello")'})
 
-// run from Terminal: 
+// run from Terminal:
 // osascript -l JavaScript myscript.js
 
 
