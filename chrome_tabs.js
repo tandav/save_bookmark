@@ -1,10 +1,25 @@
 #!/usr/bin/env osascript -l JavaScript
 
+const app = Application.currentApplication()
+app.includeStandardAdditions = true
 
-const chrome = Application('Google Chrome')
-const currentTab = chrome.windows[0].activeTab()
-console.log(currentTab.url())
-console.log(currentTab.title())
+const folder = app.chooseFolder({
+    withPrompt: "Select Save Location",
+    defaultLocation: Path("/Users/tandav/Desktop"),
+})
+
+console.log(folder)
+//document
+// Result: Path("/Users/yourUserName/Documents/ImportantDoc.pages")
+
+
+//console.log()
+
+//const chrome = Application('Google Chrome')
+//chrome.chooseFolder()
+//const currentTab = chrome.windows[0].activeTab()
+//console.log(currentTab.url())
+//console.log(currentTab.title())
 
 
 // console.log(chrome.windows.length)
