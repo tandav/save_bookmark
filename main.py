@@ -4,35 +4,40 @@ from pathlib import Path
 import plistlib
 
 
-# print(__package__, __path__, __file__)
 
 js_path = str(Path(__file__).absolute().parent / 'chrome_tabs.js')
 cmd = 'osascript', '-l', 'JavaScript', js_path
-url, title = subprocess.run(cmd, check=True, text=True, capture_output=True).stderr.splitlines()
-print(url)
-print(title)
 
+p = subprocess.run(cmd, text=True, capture_output=True)
 
-DEFAULT_SAVE_DIR = Path.home() / 'Documents/GoogleDrive/entrypoint/knowledge'
+if p.returncode == 0:
+    url, title, folder = p.stderr.splitlines()
+    print(url)
+    print(title)
+    print(folder)
 
-# Make a top-level instance and hide since it is ugly and big.
-root = tkinter.Tk()
-root.withdraw()
+    with (Path(folder) / title).with_suffix('.webloc').open('wb') as f:
+        plistlib.dump({'URL': url}, f)
 
-subprocess.run(['open', '-a', 'Python']) # i've tried many options to focus on savefile dialog in macOS, but only this works
+# DEFAULT_SAVE_DIR = Path.home() / 'Documents/GoogleDrive/entrypoint/knowledge'
 #
-# try:
+# # Make a top-level instance and hide since it is ugly and big.
+# root = tkinter.Tk()
+# root.withdraw()
 #
-# except AttributeError
-
-f = tkinter.filedialog.asksaveasfile(
-    mode             = 'wb',
-    # parent         = root,
-    title            = 'Where to Save',
-    initialdir       = DEFAULT_SAVE_DIR,
-    initialfile      = title           ,
-    defaultextension = 'webloc'        ,
-)
-
-if f:
-    plistlib.dump({'URL': url}, f)
+# subprocess.run(['open', '-a', 'Python']) # i've tried many options to focus on savefile dialog in macOS, but only this works
+# #
+# # try:
+# #
+# # except AttributeError
+#
+# f = tkinter.filedialog.asksaveasfile(
+#     mode             = 'wb',
+#     # parent         = root,
+#     title            = 'Where to Save',
+#     initialdir       = DEFAULT_SAVE_DIR,
+#     initialfile      = title           ,
+#     defaultextension = 'webloc'        ,
+# )
+#
+# if f:

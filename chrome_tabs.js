@@ -1,25 +1,33 @@
 #!/usr/bin/env osascript -l JavaScript
 
+const chrome = Application('Google Chrome')
+const tab    = chrome.windows[0].activeTab()
+console.log(tab.url())
+console.log(tab.title())
+
+
 const app = Application.currentApplication()
 app.includeStandardAdditions = true
 
+const default_location = app.pathTo('home folder').toString() + '/Documents/GoogleDrive/entrypoint'
+
 const folder = app.chooseFolder({
-    withPrompt: "Select Save Location",
-    defaultLocation: Path("/Users/tandav/Desktop"),
+    withPrompt: 'Select Save Location',
+    defaultLocation: default_location,
 })
 
 console.log(folder)
-//document
-// Result: Path("/Users/yourUserName/Documents/ImportantDoc.pages")
 
 
-//console.log()
 
-//const chrome = Application('Google Chrome')
-//chrome.chooseFolder()
-//const currentTab = chrome.windows[0].activeTab()
-//console.log(currentTab.url())
-//console.log(currentTab.title())
+//ObjC.import('stdlib')
+//console.log($.getenv('HOME'))
+
+//var env = $.NSProcessInfo.processInfo.environment // -[[NSProcessInfo processInfo] environment]
+//env = ObjC.unwrap(env)
+//for (var k in env) {
+//    console.log('"' + k + '": ' + ObjC.unwrap(env[k]))
+//}
 
 
 // console.log(chrome.windows.length)
