@@ -11,7 +11,7 @@ def clean_filename(fname, maxlen=255):
 
 
 def run_javascript(code):
-    cmd = cmd = 'osascript', '-l', 'JavaScript', '-e', code
+    cmd = 'osascript', '-l', 'JavaScript', '-e', code
     return subprocess.run(cmd, text=True, capture_output=True).stderr
 
 
